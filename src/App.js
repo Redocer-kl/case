@@ -61,6 +61,7 @@ function App() {
     }
 
     const handleKeyDown = (event) => {
+        console.log(-1)
         if (event.keyCode === 8) {;         
             if (del !== -1){ //если удаление не пустое при нажатой backspace производим удаление
                 const newCircles = [...circles];
