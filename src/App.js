@@ -14,6 +14,7 @@ height: 70%;
 width: 80%;
 border-radius: 8px;
 overflow: hidden;
+box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
 `;
 
 //круг
@@ -26,24 +27,26 @@ top: ${props => props.top}%;
 left: ${props => props.left}%;
 background: #00b0f0;
 `;
+
 //кнопка
 const AddCircleButton = styled.button 
 `position: absolute;
-top: 10%;
+top: 7%;
 left: 42%;
 width: 18%;
 text-align: center;
 background: #00b0f0;
 font-size: 16px;
 border: None;
-padding: 15px 32px;
+padding: 1% 1%;
 color: white;
 border-radius: 8px;
+сursor: pointer;
+box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
 `;
 
-let del = -1;
-
 function App() {
+    let del = -1;
     //хук для кругов
     const [circles, setCircles] = useState([]);
     //добавление круга
@@ -56,12 +59,16 @@ function App() {
         setCircles([...circles, { size, ...position }]); //обновить состояние
     };
 
-    const handleMouseMove = (index) => { //если мышка над кружком, его индекс помещаем в удаление 
+    const handleMouseOver = (index) => { //если мышка над кружком, его индекс помещаем в удаление 
         del = index;
+    }
+    
+    const handleMouseOut = () => { //если мышка над кружком, его индекс помещаем в удаление 
+        del = -1;
     }
 
     const handleKeyDown = (event) => {
-        console.log(-1)
+        console.log(del)
         if (event.keyCode === 8) {;         
             if (del !== -1){ //если удаление не пустое при нажатой backspace производим удаление
                 const newCircles = [...circles];
@@ -75,11 +82,11 @@ function App() {
     //вывод jsx элемента
     return (
         <div onKeyDown={handleKeyDown}> 
-            <AddCircleButton onClick={addCircle}>Добавить круг</AddCircleButton>
+            <AddCircleButton  onClick={addCircle}>Добавить круг</AddCircleButton>
             <Slide>
                 {circles.map((circle, i) => (
-                    <Draggable >
-                        <Circle size={circle.size} top={circle.top} left={circle.left} key={i} onMouseMove={() => handleMouseMove(i) }/>
+                    <Draggable>
+                        <Circle size={circle.size} top={circle.top} left={circle.left} key={i} onMouseOver={() => handleMouseOver(i)} onMouseOut ={() => handleMouseOut()}/>
                     </Draggable>
                 ))}
             </Slide>
