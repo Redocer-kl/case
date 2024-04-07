@@ -3,7 +3,7 @@ import Draggable from 'react-draggable';
 import styled from 'styled-components';
 
 const x = Math.round(window.screen.width * 0.8 / 100) //переменная нужна для определенмя границ слайда
-
+const y = Math.round(window.screen.height * 0.7 / 100)
 //слайд
 const Slide = styled.div`
 background: white;
@@ -19,8 +19,8 @@ box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
 
 //круг
 const Circle = styled.div`
-width: ${props => props.size * x}px;
-height: ${props => props.size * x}px;
+width: ${props => props.size * (x + y) / 2}px;
+height: ${props => props.size * (x + y) / 2}px;
 border-radius: 50%;
 position: absolute;
 top: ${props => props.top}%;
@@ -68,7 +68,6 @@ function App() {
     }
 
     const handleKeyDown = (event) => {
-        console.log(del)
         if (event.keyCode === 8) {;         
             if (del !== -1){ //если удаление не пустое при нажатой backspace производим удаление
                 const newCircles = [...circles];
